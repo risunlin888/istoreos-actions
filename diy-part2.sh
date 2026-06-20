@@ -26,6 +26,7 @@
 # CONFIG_PACKAGE_luci-app-openclash=y
 # ' >> .config
 # 给option串口驱动添加 TD TECH MT5700M 3466:3301 + MTK 0e8d:7925 设备ID
-sed -i '/static const struct usb_device_id option_ids\[\] = {/a\
+# 兼容iStoreOS源码路径，自动搜索option.c写入5G模组USB ID
+find ./package -name "option.c" -exec sed -i '/static const struct usb_device_id option_ids\[\] = {/a\
 	{ USB_DEVICE(0x3466, 0x3301) }, /* TD Tech MT5700M-CN 5G Modem */\
-	{ USB_DEVICE(0x0e8d, 0x7925) }, /* MediaTek 0e8d:7925 Wireless */' package/kernel/usb-serial/option/src/option.c
+	{ USB_DEVICE(0x0e8d, 0x7925) }, /* MediaTek 0e8d:7925 Wireless */' {} \;
